@@ -5,6 +5,20 @@ import pytest
 @pytest.mark.parametrize("expression , expected", [
     ("2*x", True),
     ("2 ^ x + 2", True),
+    ("(( 2 * x + 3 ))", True),
+    ("(()))(", False),
+    ("((()))", True),
+    ("(+++)", True),
+    (")", False),
+    ("(", False)
+])
+def test_valid_brackets(expression, expected):
+    assert Validator().validBrackets(expression) == expected
+
+
+@pytest.mark.parametrize("expression , expected", [
+    ("2*x", True),
+    ("2 ^ x + 2", True),
     ("( 2 * x + 2 ) * 3 + 1", True),
     ("(2 * x + 3 * ) x + 1", False),
     ("x ^ 10 + 3 * (x ^ 15 + 3)", True),
