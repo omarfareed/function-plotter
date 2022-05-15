@@ -19,7 +19,7 @@
    <enum>Qt::TabFocus</enum>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Plot</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLineEdit" name="expression">
