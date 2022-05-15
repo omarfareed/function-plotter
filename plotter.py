@@ -1,7 +1,3 @@
-from cmath import exp
-from tkinter.tix import MAX
-from wsgiref.validate import validator
-import matplotlib
 from validator import Validator
 import matplotlib.pyplot as plt
 import numpy as np
