@@ -26,14 +26,7 @@ class Plotter():
         plt.plot(x, y)
         plt.show()
 
-    def validRange(self, x_min, x_max):
-        isNumeric = self.validator.numericValue
-        return isNumeric(x_min) and isNumeric(x_max) and x_min < x_max
-
-    def validate(self, expression, x_min, x_max):
-        return self.validator.validate(expression) and self.validRange(x_min, x_max)
-
     def plot(self, expression, x_min, x_max):
-        if not self.validate(expression, x_min, x_max):
+        if not self.validator.validInput(expression, x_min, x_max):
             raise ValueError('Invalid expression')
         self._plot(expression, float(x_min), float(x_max))
