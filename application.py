@@ -41,9 +41,33 @@ class MainWindow(QtWidgets.QMainWindow):
         self.min_value.setText("")
         self.max_value.setText("")
 
+    def setWidgetStyle(self, widget, valid):
+        if valid:
+            widget.setStyleSheet("color : green")
+        else:
+            widget.setStyleSheet("color : red")
+
+    def validateExpression(self):
+        expression = self.expression.text()
+        self.validExpression = expression.strip(
+        ) != "" and self.validator.validExpression(expression)
+        self.setWidgetStyle(self.expression, self.validExpression)
+
+    def validateRange(self):
+        min_value, max_value = self.min_value, self.max_value
+        self.validRange = self.validator.validRange(
+            min_value.text(), max_value.text())
+        self.setWidgetStyle(min_value, self.validRange)
+        self.setWidgetStyle(max_value, self.validRange)
+
+    def giveUserResponse(self):
+        self.validateExpression() 
+        self.validateRange()
+
     def validateInput(self):
         validInput = self.validator.validInput(
             self.expression.text(), self.min_value.text(), self.max_value.text())
+        self.giveUserResponse()
         self.plotBtn.setEnabled(validInput)
 
 
