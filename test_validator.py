@@ -27,7 +27,8 @@ def test_valid_brackets(expression, expected):
     ("x ^ (3 ^ 2)", True),
     ("x + 2 + ", False),
     ("x + 2 - -1", True),
-    ("x + 2 - - 1", False)
+    ("x + 2 - - 1", False),
+    ("( ( x + 2 ) * 3 )", True)
 ])
 def test_valid_expression(expression, expected):
     assert Validator().validate(expression) == expected
