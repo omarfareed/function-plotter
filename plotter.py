@@ -1,3 +1,4 @@
+from cmath import exp
 from tkinter.tix import MAX
 from wsgiref.validate import validator
 import matplotlib
@@ -8,21 +9,34 @@ import numpy as np
 
 class Plotter():
     def __init__(self):
+        # init validator object
         self.validator = Validator()
 
     def evaluate(self, expression, x):
-        expression = expression.replace('x', f'({x})').replace('^', '**')
-        val = eval(expression)
-        return val
+        try:
+            expression = expression.replace('x', f'({x})').replace('^', '**')
+            val = eval(expression)
+            return val
+        except:
+            # if value is so large or invalid like 0 ^ 0
+            return None
 
     def getGraphPoints(self, expression, x_min, x_max):
-        step = (x_max - x_min) / 10000
-        x = [round(i, 6) for i in np.arange(x_min, x_max, step)]
+        # create x axes points
+        x = np.linspace(x_min, x_max, 100000)
+        # y axes points using evaluate function
         y = [self.evaluate(expression, i) for i in x]
         return x, y
 
+    def initLabels(self, expression):
+        plt.figure(num="2d plotter")
+        plt.xlabel("X")
+        plt.ylabel("F(X)")
+        plt.title(f'F(X) = {expression.replace(" " , "")}')
+
     def _plot(self, expression, x_min, x_max):
         x, y = self.getGraphPoints(expression, x_min, x_max)
+        self.initLabels(expression)
         plt.plot(x, y)
         plt.show()
 
