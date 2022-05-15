@@ -9,7 +9,10 @@ class Validator():
             rf'^({termRegex}[\+\-\*\/\^])*{termRegex}$')
 
     def numericValue(self, value):
-        return re.match(self.numRegex, value)
+        return re.match(self.numRegex, value) is not None
+
+    def validRange(self, x_min, x_max):
+        return self.numericValue(x_min) and self.numericValue(x_max) and float(x_min) < float(x_max)
 
     def validBrackets(self, expression):
         brackets = []
@@ -22,5 +25,8 @@ class Validator():
                 brackets.pop()
         return len(brackets) == 0
 
-    def validate(self, expression):
+    def validExpression(self, expression):
         return re.match(self.expressionRegex, expression) is not None and self.validBrackets(expression)
+
+    def validInput(self, expression, x_min, x_max):
+        return self.validExpression(expression) and self.validRange(x_min, x_max)
