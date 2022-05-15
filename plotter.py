@@ -1,3 +1,5 @@
+from tkinter.tix import MAX
+from wsgiref.validate import validator
 import matplotlib
 from validator import Validator
 import matplotlib.pyplot as plt
@@ -10,7 +12,8 @@ class Plotter():
 
     def evaluate(self, expression, x):
         expression = expression.replace('x', f'({x})').replace('^', '**')
-        return eval(expression)
+        val = eval(expression)
+        return val
 
     def getGraphPoints(self, expression, x_min, x_max):
         step = (x_max - x_min) / 10000
@@ -23,10 +26,14 @@ class Plotter():
         plt.plot(x, y)
         plt.show()
 
+    def validRange(self, x_min, x_max):
+        isNumeric = self.validator.numericValue
+        return isNumeric(x_min) and isNumeric(x_max) and x_min < x_max
+
     def validate(self, expression, x_min, x_max):
-        return self.validator.validate(expression) and x_min < x_max
+        return self.validator.validate(expression) and self.validRange(x_min, x_max)
 
     def plot(self, expression, x_min, x_max):
         if not self.validate(expression, x_min, x_max):
             raise ValueError('Invalid expression')
-        self._plot(expression, x_min, x_max)
+        self._plot(expression, float(x_min), float(x_max))
