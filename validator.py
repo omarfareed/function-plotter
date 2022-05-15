@@ -3,12 +3,15 @@ import re
 
 class Validator():
     def __init__(self):
-        numRegex = r'\-?[0-9]*\.?[0-9]+'
-        termRegex = rf'\(*\s*(({numRegex})|x)\s*\)*'
+        self.numRegex = r'\-?[0-9]*\.?[0-9]+'
+        termRegex = rf'\s*\(*\s*(({self.numRegex})|x)\s*\)*\s*'
         self.expressionRegex = re.compile(
             rf'^({termRegex}[\+\-\*\/\^])*{termRegex}$')
 
-    def _validBrackets(self, expression):
+    def numericValue(self, value):
+        return re.match(self.numRegex, value)
+
+    def validBrackets(self, expression):
         brackets = []
         for i in expression:
             if i == '(':
@@ -20,4 +23,4 @@ class Validator():
         return len(brackets) == 0
 
     def validate(self, expression):
-        return re.match(self.expressionRegex, expression) is not None and self._validBrackets(expression)
+        return re.match(self.expressionRegex, expression) is not None and self.validBrackets(expression)
