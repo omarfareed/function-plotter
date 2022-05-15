@@ -1,4 +1,4 @@
-# CMS-downloader
+# Function Plotter
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/60b8e0742c4044d6b35eb7e27ecb7a4b)](https://app.codacy.com/gh/aboueleyes/cms-downloader?utm_source=github.com&utm_medium=referral&utm_content=aboueleyes/cms-downloader&utm_campaign=Badge_Grade_Settings)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
