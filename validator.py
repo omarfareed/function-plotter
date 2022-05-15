@@ -9,7 +9,7 @@ class Validator():
             rf'^({termRegex}[\+\-\*\/\^])*{termRegex}$')
 
     def numericValue(self, value):
-        return re.match(self.numRegex, value) is not None
+        return re.match(rf'^{self.numRegex}$', f'{value}') is not None
 
     def validRange(self, x_min, x_max):
         return self.numericValue(x_min) and self.numericValue(x_max) and float(x_min) < float(x_max)
