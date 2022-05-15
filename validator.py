@@ -4,7 +4,7 @@ import re
 class Validator():
     def __init__(self):
         self.numRegex = r'\-?[0-9]*\.?[0-9]+'
-        termRegex = rf'\s*\(*\s*(({self.numRegex})|x)\s*\)*\s*'
+        termRegex = rf'[\s\(]*(({self.numRegex})|x)[\s\)]*'
         self.expressionRegex = re.compile(
             rf'^({termRegex}[\+\-\*\/\^])*{termRegex}$')
 
