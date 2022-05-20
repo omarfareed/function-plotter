@@ -22,6 +22,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def initUi(self):
         self.loadUI()
+        # self.alignInput()
         self.initButtons()
         self.initTextFields()
         self.show()
@@ -47,6 +48,12 @@ class MainWindow(QtWidgets.QMainWindow):
         else:
             widget.setStyleSheet("color : red")
 
+    def alignInput(self):
+        self.min_value = QtWidgets.QLineEdit()
+
+        self.min_value.setStyleSheet("padding : 20px")
+        self.max_value.setStyleSheet("padding : 20px")
+
     def validateExpression(self):
         expression = self.expression.text()
         self.validExpression = expression.strip(
@@ -61,7 +68,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setWidgetStyle(max_value, self.validRange)
 
     def giveUserResponse(self):
-        self.validateExpression() 
+        self.validateExpression()
         self.validateRange()
 
     def validateInput(self):
@@ -73,5 +80,8 @@ class MainWindow(QtWidgets.QMainWindow):
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
+    app.setStyleSheet("""QLineEdit, QLineEdit::focus {
+        padding : 10px 15px;
+    }""")
     win = MainWindow()
     sys.exit(app.exec_())
