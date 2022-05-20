@@ -1,12 +1,20 @@
 import re
+# get all special function from math
+from math import *
+import math
+specialFunctions = [function for function in math.__dir__()
+                    if not function.startswith('__')]
+specialFunctionsRegex = r'|'.join(
+    [f'[\s\(]*{function}\s*\(' for function in specialFunctions])
 
 
 class Validator():
     def __init__(self):
         self.numRegex = r'\-?[0-9]*\.?[0-9]+'
         termRegex = rf'[\s\(]*(({self.numRegex})|[Xx])[\s\)]*'
+        print(termRegex)
         self.expressionRegex = re.compile(
-            rf'^({termRegex}[\+\-\*\/\^])*{termRegex}$')
+            rf'^({termRegex}[\+\-\*\/\^]|{specialFunctionsRegex})*{termRegex}$')
 
     def numericValue(self, value):
         return re.match(rf'^{self.numRegex}$', f'{value}') is not None
