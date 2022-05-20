@@ -65,7 +65,12 @@ pytest -v
 ##### Wrong Expression
 
 ![Wrong Expression](./images/wrongExpression.PNG)
+![special function validation](./images/specialFunctionValidation1.PNG)
 
 ### Plotting
 
 ![graph](./images/plot.PNG)
+
+![special function example 1](./images/specialFunction1.PNG)
+
+![special function example 2](./images/specialFunctionExample2.PNG)
