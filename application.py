@@ -35,7 +35,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def plot(self):
         self.plotter.plot(self.expression.text(),
-                          self.min_value.text(), self.max_value.text())
+                          self.min_value.text().strip(), self.max_value.text().strip())
 
     def clearInputs(self):
         self.expression.setText("")
@@ -50,7 +50,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def alignInput(self):
         self.min_value = QtWidgets.QLineEdit()
-
         self.min_value.setStyleSheet("padding : 20px")
         self.max_value.setStyleSheet("padding : 20px")
 
@@ -63,7 +62,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def validateRange(self):
         min_value, max_value = self.min_value, self.max_value
         self.validRange = self.validator.validRange(
-            min_value.text(), max_value.text())
+            min_value.text().strip(), max_value.text().strip())
         self.setWidgetStyle(min_value, self.validRange)
         self.setWidgetStyle(max_value, self.validRange)
 
@@ -73,7 +72,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def validateInput(self):
         validInput = self.validator.validInput(
-            self.expression.text(), self.min_value.text(), self.max_value.text())
+            self.expression.text(), self.min_value.text().strip(), self.max_value.text().strip())
         self.giveUserResponse()
         self.plotBtn.setEnabled(validInput)
 
