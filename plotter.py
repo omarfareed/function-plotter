@@ -1,6 +1,7 @@
 from validator import Validator
 import matplotlib.pyplot as plt
 import numpy as np
+import re
 
 
 class Plotter():
@@ -10,7 +11,8 @@ class Plotter():
 
     def evaluate(self, expression, x):
         try:
-            expression = expression.replace('x', f'({x})').replace('^', '**')
+            expression = re.sub(r'[Xx]', f'({x})', expression)
+            expression = expression.replace('^', '**')
             val = eval(expression)
             return val
         except:
@@ -29,15 +31,13 @@ class Plotter():
         plt.xlabel("X")
         plt.ylabel("F(X)")
         plt.grid(True)
-        plt.title(f'F(X) = {expression.replace(" " , "")}')
+        plt.title(f'F(X) = {expression.replace(" " , "").replace("X" , "x")}')
 
     def _plot(self, expression, x_min, x_max):
         x, y = self.getGraphPoints(expression, x_min, x_max)
         self.initLabels(expression)
-        print(x , y)
         plt.plot(x, y)
         plt.show()
-
 
     def plot(self, expression, x_min, x_max):
         if not self.validator.validInput(expression, x_min, x_max):
