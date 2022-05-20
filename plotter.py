@@ -2,7 +2,7 @@ from validator import Validator
 import matplotlib.pyplot as plt
 import numpy as np
 import re
-
+from math import *
 
 class Plotter():
     def __init__(self):
